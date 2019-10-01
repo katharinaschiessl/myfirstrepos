@@ -1,0 +1,96 @@
+---
+title: "My first notebook"
+author: "kath"
+date: "1, oct. 2019"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: true
+---
+
+# Headings 1 {#head1}
+text after heading
+**Bold** text here
+*italic* here
+^superscript^ text here
+~subscript~ text here
+`code`
+
+~~ strikethrough text here
+
+## subheader 1
+[text of link] (http://.....)
+
+### header 4
+you can find more information in this section [this section](#head1)
+
+#### header sub4 [^1]
+[^1]: footnote this is number 1 footer
+
+## Lists
+
+1. item 1
+2. item 2
+
+    a.subitme1
+    b.subitme2
+  
+<!-- do not show this on the report -->
+<!-- don not show -->
+<!-- * item 1 -->
+* item 2
+
+# Images (to display a logo or)
+![This is the figure caption](img/ensa.png)
+
+# Tables
+| column 1 | Column 2|
+|..........|.........|
+|item1     | item 2  |
+
+# Blocks
+
+``` 
+print ("hello")
+x <- 1 +2
+```
+
+# inserting R code chunks
+```{r}
+library(tidyverse)
+pop_data <- read_csv("data/gapminder_data.csv")
+```
+
+# create a table with only European countries in 2007, sort with countries largest life expectancy first
+```{r}
+euro_data_tbl <- pop_data %>% 
+  filter(continent == "Europe" & year == 2007) %>% 
+  arrange(desc(lifeExp))
+```
+```{r}
+library(rmarkdown)
+paged_table(euro_data_tbl)
+```
+
+```{r}
+# create dataset that will plot image
+euro_data_fig <- pop_data %>% 
+  filter(continent == "Europe") %>% mutate(year=as.factor(year))
+```
+```{r}
+euro_data_fig
+```
+
+```{r}
+euro_data_fig %>% ggplot(mapping=aes(x=year, y=lifeExp)) + geom_violin ()
+fig.cap="life expectancy in europe"
+```
+
+
+
+
+
+
+
+    
